@@ -1,4 +1,5 @@
 
-/Library/*
-/Temp/*
-/bin/*
+.DS_Store
+UnityClient/Library/*
+UnityClient/Temp/*
+UnityClient/bin/*
