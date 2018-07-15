@@ -3,7 +3,9 @@
     package="com.nkemavaha.natereactnativeandroidmodule">
 
     <application>
-        <activity android:name=".ReactAndroidActivity"></activity>
+        <activity android:name=".ReactAndroidActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
     </application>
 
 </manifest>
