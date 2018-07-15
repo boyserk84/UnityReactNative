@@ -20,42 +20,41 @@ public class Build : MonoBehaviour
     static readonly string apkPath = projectPath + "/bin/UnityReactTest.apk";
 
     /// <summary>
-    /// Build Path
+    /// Exported Android project path.
     /// </summary>
-    static readonly string buildPath = projectPath + "/bin/UnityReactTest.apk/UnityReactTest";
+    static readonly string exportAndroidProjectPath = Path.GetFullPath(Path.Combine(projectPath, "..")) + "/ReactAndroid/ReactProject/android";
 
     /// <summary>
     /// React Export Path
     /// </summary>
     static readonly string exportPath = Path.GetFullPath(Path.Combine(projectPath, "..")) + "/ReactAndroid/ReactProject/Export";
 
-    [MenuItem("Build/Android as React Dependency %g", false, 2)]
+    [MenuItem("Build/Android as Project %g", false, 2)]
     public static void DoBuildAsDependency()
     {
-        UnityEngine.Debug.Log(string.Format("Checking All Paths...\nProjectPath={0} \nAndroidAPKPath={1} \nBuildPath={2} \nexportPath={3}", projectPath, apkPath, buildPath,exportPath));
-
-        if (Directory.Exists(apkPath))
+        if (Directory.Exists(exportAndroidProjectPath))
         {
-            UnityEngine.Debug.Log(string.Format("Deleting apkFolder={0}", apkPath));
-            Directory.Delete(apkPath, true);
+            UnityEngine.Debug.Log(string.Format("Deleting ExportAndroidProjectFolder={0}", exportAndroidProjectPath));
+            Directory.Delete(exportAndroidProjectPath, true);
         }
 
-        string result = BuildAPK();
+        string result = BuildAndroid(exportAndroidProjectPath);
             
         if (!string.IsNullOrEmpty(result))
             throw new Exception("Build failed: " + result);
 
-        UnityEngine.Debug.Log("Copy buildPath to exportPath");
-        Copy(Path.Combine(buildPath, "src"), Path.Combine(exportPath, "src"));
-        Copy(Path.Combine(buildPath, "libs"), Path.Combine(exportPath, "libs"));
+        //UnityEngine.Debug.Log("Copy buildPath to exportPath");
+        //Copy(Path.Combine(buildPath, "src"), Path.Combine(exportPath, "src"));
+        //Copy(Path.Combine(buildPath, "libs"), Path.Combine(exportPath, "libs"));
 
         //BuildGradle();
+        UnityEngine.Debug.Log(string.Format("Done export Unity Project to Android project path={0}", exportAndroidProjectPath));
     }
 
     [MenuItem("Build/Android APK %g", false, 1)]
     public static void DoBuildAndroidAPK()
     {
-        UnityEngine.Debug.Log(string.Format("Checking All Paths...\nProjectPath={0} \nAndroidAPKPath={1} \nBuildPath={2} \nexportPath={3}", projectPath, apkPath, buildPath,exportPath));
+        UnityEngine.Debug.Log(string.Format("Checking All Paths...\nProjectPath={0} \nAndroidAPKPath={1} \nexportPath={2}", projectPath, apkPath,exportPath));
 
         if (File.Exists(apkPath))
         {
@@ -63,7 +62,7 @@ public class Build : MonoBehaviour
             File.Delete(apkPath);
         }
 
-        string result = BuildAPK(false);
+        string result = BuildAndroid(apkPath, false);
 
         if (!string.IsNullOrEmpty(result))
             throw new Exception("Build failed: " + result);
@@ -73,10 +72,10 @@ public class Build : MonoBehaviour
     }
 
     /// <summary>
-    /// Helper method to Builds Android APK.
+    /// Helper method to Builds Android.
     /// </summary>
     /// <returns>The AP.</returns>
-    public static string BuildAPK(bool externalBuild=true) 
+    public static string BuildAndroid(string path, bool externalBuild=true) 
     {
         UnityEngine.Debug.Log(string.Format("Building Android APK to Path={0}", apkPath));
 
@@ -91,7 +90,7 @@ public class Build : MonoBehaviour
 
         string status = BuildPipeline.BuildPlayer (
             GetEnabledScenes(),
-            apkPath,
+            path,
             BuildTarget.Android,
             options
         );
