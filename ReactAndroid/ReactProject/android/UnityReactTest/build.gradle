@@ -1,0 +1,92 @@
+apply plugin: 'com.android.application'
+// Uncomment this once export to Android Studio
+project.ext.react = [
+		entryFile: "index.js"
+]
+
+apply from: "../../node_modules/react-native/react.gradle"
+
+buildscript {
+	repositories {
+		maven { url 'https://maven.google.com' }
+		jcenter()
+	}
+
+	dependencies {
+		// use newer version of the plugin for newer unity/gradle versions
+        if (gradle.gradleVersion.split('\\.').first().toInteger() < 4) {
+            classpath 'com.android.tools.build:gradle:2.3.0'
+        } else {
+            classpath 'com.android.tools.build:gradle:2.3.3'
+        }
+	}
+}
+
+allprojects {
+   repositories {
+	   maven {
+		   // All of React Native (JS, Android binaries) is installed from npm
+		   //url "../node_modules/react-native/android"
+		   url "$rootDir/../../node_modules/react-native/android"
+	   }
+      flatDir {
+        dirs 'libs'
+      }
+      // This fix the issues of missing appcompat-v7:27.1.1
+	  maven { url 'https://maven.google.com' }
+	   jcenter()
+   }
+}
+
+dependencies {
+
+	compile fileTree(dir: 'libs', include: ['*.jar'])
+
+	compile(name: 'natereactnativeandroidmodule-debug', ext:'aar')
+	//compile(name: 'react-native-0.56.0', ext: 'aar')
+	// Uncomment this once export to Android Studio Project
+	compile 'com.android.support:appcompat-v7:27.1.1'
+	compile 'com.android.support.constraint:constraint-layout:1.1.2'
+	compile 'com.facebook.react:react-native:0.56.0'
+
+
+}
+
+android {
+	compileSdkVersion 27
+	buildToolsVersion '27.0.3'
+	defaultConfig {
+		targetSdkVersion 27
+		applicationId 'com.nkemavaha.UnityReactTest'
+		// exclude 64 bits due to react-native does not support this
+		// uncomment this once export to Android Studio Project
+		 ndk {
+             abiFilters "armeabi-v7a", "x86"
+         }
+		 packagingOptions {
+		 	exclude '/lib/arm64-v8a/libimagepipeline.so'
+		 	exclude '/lib/x86_64/libimagepipeline.so'
+		 }
+		multiDexEnabled true
+
+	}
+	lintOptions {
+		abortOnError false
+	}
+
+	buildTypes {
+  		debug {
+ 			minifyEnabled 
+ 			useProguard 
+ 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-unity.txt'
+  			jniDebuggable true
+  		}
+  		release {
+ 			minifyEnabled 
+ 			useProguard 
+  			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-unity.txt'
+  			
+  		}
+	}
+
+}
