@@ -1,3 +1,10 @@
+// Uncomment this once export to Android Studio
+//project.ext.react = [
+//		entryFile: "index.js"
+//]
+
+//apply from: "../../node_modules/react-native/react.gradle"
+
 buildscript {
 	repositories {
 		maven { url 'https://maven.google.com' }
@@ -19,6 +26,10 @@ allprojects {
       flatDir {
         dirs 'libs'
       }
+      // This fix the issues of missing appcompat-v7:27.1.1
+      // uncomment this once export to Android Studio
+	  //maven { url 'https://maven.google.com' }
+	  jcenter()
    }
 }
 
@@ -26,21 +37,29 @@ apply plugin: 'com.android.application'
 
 dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])
-**DEPS**}
+**DEPS**
+	// Uncomment this once export to Android Studio Project
+	//compile 'com.android.support:appcompat-v7:27.1.1'
+	//compile 'com.android.support.constraint:constraint-layout:1.1.2'
+}
 
 android {
+	// Make sure it is 27
 	compileSdkVersion **APIVERSION**
 	buildToolsVersion '**BUILDTOOLS**'
 	defaultConfig {
+		// Make sure it is 27
 		targetSdkVersion **TARGETSDKVERSION**
 		applicationId '**APPLICATIONID**'
-		//ndk {
-        //    abiFilters "armeabi-v7a", "x86"
-        //}
-		//packagingOptions {
-		//	exclude '/lib/arm64-v8a/libimagepipeline.so'
-	//		exclude '/lib/x86_64/libimagepipeline.so'
-	//	}
+		// exclude 64 bits due to react-native does not support this
+		// uncomment this once export to Android Studio Project
+		// ndk {
+  //           abiFilters "armeabi-v7a", "x86"
+  //       }
+		// packagingOptions {
+		// 	exclude '/lib/arm64-v8a/libimagepipeline.so'
+		// 	exclude '/lib/x86_64/libimagepipeline.so'
+		// }
 		multiDexEnabled true
 
 	}
