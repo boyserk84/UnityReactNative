@@ -283,3 +283,21 @@ If you've set things up correctly, you'd be able to trigger `React` project from
 # Author
 Nate Kemavaha
 
+# References
+## Thank you for all contributors to these references. Without them, we wouldn't have this project working.
+- Could not find dependency: https://stackoverflow.com/questions/41570435/gradle-error-could-not-find-com-android-tools-buildgradle2-2-3
+- Troubleshooting Android Guide: http://shobhitsamaria.com/troubleshooting-unity-build-android-platform/
+- Unable to load `index.android.bundle`: https://stackoverflow.com/questions/44446523/unable-to-load-script-from-assets-index-android-bundle-on-windows
+- Tip for how to change `index.android.js` entry: https://github.com/facebook/react-native/issues/3442
+- Unity-React Project from `marijn` for a different approach to `Unity` and `React`: https://github.com/marijnz/unity-react
+- How to include external `aar` using Gradle: https://stackoverflow.com/questions/16682847/how-to-manually-include-external-aar-package-using-new-gradle-android-build-syst
+- Unity3D and React-Native Troubleshooting List: https://answers.unity.com/questions/1083233/unity3d-react-native.html
+- Export and running Unity3D to Android Studio: https://stackoverflow.com/questions/38980792/exporting-and-running-unity3d-project-to-android-studio
+- Proguard and how to check dependencies: https://stackoverflow.com/questions/43496103/prograurd-duplicate-zip-entry
+- Resolve could not find `appcompat-v7`: https://github.com/react-community/lottie-react-native/issues/203
+- Connecting the dots between `react-native` and `Unity3D`: https://medium.com/codeexplorers/connecting-the-dots-between-react-native-and-unity-3d-using-gradle-67f93b92c254
+- Too many field references (aka `DEX` limit): https://stackoverflow.com/questions/42582850/too-many-field-references-70613-max-is-65536
+- When to use `gradle.properties` vs `settings.gradle`: https://stackoverflow.com/questions/45387971/when-to-use-gradle-properties-vs-settings-gradle
+- `React-Native` Android app as a Module: http://www.ard.ninja/blog/react-native-android-app-as-a-module/
+- Yes it is possible to Show `Unity3D` in React (different approach): https://medium.com/@beaulieufrancois/show-unity3d-view-in-react-native-application-yes-its-possible-852923389f2d
+- Crash after requesting `React-Native` Bundle :https://github.com/facebook/react-native/issues/10925
