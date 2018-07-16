@@ -4,6 +4,13 @@ This project is basically an exploratory investigation to see if it is possible 
 
 `Last Update: 07/15/2018`
 
+# High-Level Summary of what it does
+The idea is to build `React` project and integrate into `Android` module (i.e. `AAR` or `JAR`).
+Then Unity will invoke `React` component via the `Android` module we just created.
+
+To invoke `React` component from within `Unity` app, `Unity` project will need to be exported as a `Gradle` project due to the issue of `React` does not support  64-bit and if your existing Unity project is large and has integrated a bunch of 3rd party library, you may have exceeded `DEX` counts limit by just adding `React-Native` library. These can only be resolved via a custom `build.gradle`.
+
+
 # What you need
 - Unity 5.6.5p1
 - Node installed via Homebrew
@@ -23,14 +30,6 @@ UnityClient								// Unity Project
 ```
 
 
-# High-Level Summary of what it does
-The idea is to build `React` project and integrate into `Android` module (i.e. `AAR` or `JAR`).
-Then Unity will invoke `React` component via the `Android` module we just created.
-
-To invoke `React` component from within `Unity` app, `Unity` project will need to be exported as a `Gradle` project due to the issue of `React` does not support  64-bit and if your existing Unity project is large and has integrated a bunch of 3rd party library, you may have exceeded `DEX` counts limit by just adding `React-Native` library. These can only be done via a custom `build.gradle`.
-
-
-
 # How-to-Guide (High-level)
 
 Follow https://facebook.github.io/react-native/docs/integration-with-existing-apps for step 1 to step 3.
@@ -38,14 +37,16 @@ Follow https://facebook.github.io/react-native/docs/integration-with-existing-ap
 ## 1.) Create React-Native Project.
 
 
-## 2.) Build `index.android.bundle` from your React-Native Project. This is basically what Android Application will use for rendering your React-Native project.
+## 2.) Build `index.android.bundle` from your `React-Native` Project. 
+This is basically what Android Application/module will use for rendering your React-Native project.
 Think of it as your React executable file.
+
 Run this script:
 ```
 sh build.sh
 ```
 
-It is essentially running the following command to build `index.android.bundle` with additional steps of copy the bundle file your project folder.
+It is essentially equivalent to running the following command to build `index.android.bundle` with additional steps of copy the bundle file your project folder.
 ```
 react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
 ```
@@ -53,13 +54,14 @@ react-native bundle --platform android --dev false --entry-file index.js --bundl
 Everytime you've made a change to your React-Native project. You will need to run this command in order to have your changes reflected.
 
 
-## 3.) Create Android Application to check if your React works properly.
+## 3.) Create Android Application and check if your `React` was integrated and works properly.
 If you're unable to use or import `com.facebook.react.ReactRootView` and `com.facebook.react.ReactInstanceManager`,
-it is bacause `Maven` is unable to find the latest ReactNative package. 
+it is bacause `Maven` is unable to find `React-Native` package version we need (see *3.2*).
 
 Please check the followings:
 
 ### 3.1) Ensure your path to your local `react-native/android` is correct.
+```
 allprojects {
     repositories {
         maven {
@@ -70,8 +72,9 @@ allprojects {
     }
     ...
 }
+```
 
-### 3.2) DO NOT DO THIS in `build.gradle`. 
+### 3.2) DO *NOT* DO THIS in `build.gradle`. 
 ```
 dependencies {
 	...
@@ -79,7 +82,7 @@ dependencies {
 }
 ```
 
-** DO THIS INSTEAD, Specify `react-native` version to use. **
+** *DO* THIS INSTEAD, Specify `react-native` version to use. **
 
 ```
 dependencies {
@@ -108,7 +111,8 @@ Once step#3 works and there is no issue,
 ## 5.) Export your Android Module as `AAR`.
 
 Once you reach this, Congratulations!
-Now the most challenging part,
+
+## Now the most challenging part,
 
 ## 6.) Create Unity Project to communicate to Android Module.
 - Create a button in Unity, which is basically going to call the static method from step#4 via JavaObject and JavaClassObject
@@ -123,6 +127,7 @@ reactNativeActivity.CallStatic("YOUR_STATIC_METHOD", currentActivity);
 ```
 
 ## 7.) Copy your Android Module `AAR` file to `Assets/Plugins/Android` folder.
+This will get copied over to `Gradle` project once exported.
 
 ## 8.) Export Unity project to Android Gradle project. 
 https://docs.unity3d.com/Manual/android-gradle-overview.html
@@ -132,9 +137,9 @@ We need to do this because of the followings:
 - Avoid exceed the limit of Android dex counts.
 - Unity uses old `Gradle` version, which lacks some of the functionality we may need (i.e. ability to exclude 64 bit).
 
-There are 2 ways to do this:
+### There are 2 ways to do this:
 
-8.1) Use `Gradle` option from Unity's `Build Settings`
+### 8.1) Use `Gradle` option from Unity's `Build Settings`
 - Under `File` -> `Build Settings` 
 - Check `Export Project`
 - Change `Build System` to `Gradle (New)`
@@ -144,11 +149,11 @@ OR
 
 (preferably)
 
-## 8.2) Create a custom Build/export option.
+### 8.2) Create a custom Build/export option.
 
-### 8.2.1) Create `mainTemplate.gradle` in `Assets/Plugins/Android` folder.
+#### 8.2.1) Create `mainTemplate.gradle` in `Assets/Plugins/Android` folder.
 
-### 8.2.2) Create `Build.cs` to custom build/export your Unity Android project.
+#### 8.2.2) Create `Build.cs` to custom build/export your Unity Android project.
 ```
 	[MenuItem("Build/Android Project %g", false, 1)]
 	public static void BuildAndroid()
@@ -181,7 +186,8 @@ To ensure a smooth experience, create a new folder for your integrated React Nat
 NOTE: Please make sure to be able to build and launch your APK successfully (minus `React` part). Otherwise, we would have a non-functioning `Gradle` project.
 
 
-## 9.) Your Unity's Android Gradle Project, open it with Android studio, but do NOT use the default `gradle` setting suggested by Android Studio.
+## 9.) Your Unity's Android Gradle Project, open it with Android studio, 
+but ** DO NOT ** use the default `gradle` setting suggested by Android Studio.
 
 This is located in `ReactAndroid/ReactProject/android/UnityReactTest`. It was exported from Unity.
 
@@ -255,6 +261,7 @@ This ensures `React-Native` package has all the required dependencies.
 ### 9.2) Copy over external dependencies to `libs` folder from your `React-Native` project folder.
 - Your android module `aar` from `ReactAndroid/ReactProject/native_android/YOUR_MODULE_NAME/builds/outputs/YOUR_MODULE.ARR`
 - `react-native-0.56.0.aar` from your `ReactAndroid/ReactProjet/node_modules/react-native/android/com/facebook/react/react-native/0.56.0/` project.
+
 NOTE: `node_modules` folder was generated after you create `React-Native` project via `react-native` command, run `npm install`, or run `react-native run-android`.
 
 ### 9.3) Copy `index.android.bundle` to `ReactAndroid/ReactProject/android/UnityReactTest/src/main/assets/` folder.
