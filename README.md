@@ -12,6 +12,15 @@ This project is basically an exploratory investigation to see if it is possible 
 - Android SDK from version 16 to the latest one
 - Android Build Tools at least version 25 (Recommended 27)
 
+# Where things are.
+```
+ReactAndroid							// React Project
+.../ReactProject
+.../.../native_android					// Android App and Module projects for React
+.../.../android/EXPORT_PROJECT_NAME		// Exported Unity to Android Project
+UnityClient								// Unity Project
+.../Assets/Plugins/Android/				// Android Plugins and Unity's custom gradle template
+```
 
 # How-to-Guide (High-level)
 
