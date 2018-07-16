@@ -100,7 +100,7 @@ reactNativeActivity.CallStatic("YOUR_STATIC_METHOD", currentActivity);
 https://docs.unity3d.com/Manual/android-gradle-overview.html
 
 We need to do this because of the followings:
-- `React` does not support 64 bit.
+- `React` does NOT support 64 bit.
 - Avoid exceed the limit of Android dex counts.
 - Unity uses old `Gradle` version, which lacks some of the functionality we may need (i.e. ability to exclude 64 bit).
 
@@ -154,6 +154,10 @@ NOTE: Please make sure to be able to build and launch your APK successfully (min
 
 
 ## 9.) Your Unity's Android Gradle Project, open it with Android studio, but do NOT use the default `gradle` setting suggested by Android Studio.
+
+This is located in `ReactAndroid/ReactProject/android/UnityReactTest`. It was exported from Unity.
+
+This is basically Unity's `Android` project building with `Gradle`.
 
 ### 9.1) Update `build.gradle` with the following options:
 
@@ -218,26 +222,29 @@ allprojects {
 This ensures `React-Native` package has all the required dependencies.
 
 
-#### 9.1.7) Build `Gradle Project`.
+#### 9.1.7) Build `Gradle Project` to see there is no error.
 
-### 9.2) Copy over external dependencies to `libs` folder.
-- Your android module `aar`.
-- `react-native-0.56.0.aar` from your `React-Native` project.
+### 9.2) Copy over external dependencies to `libs` folder from your `React-Native` project folder.
+- Your android module `aar` from `ReactAndroid/ReactProject/native_android/YOUR_MODULE_NAME/builds/outputs/YOUR_MODULE.ARR`
+- `react-native-0.56.0.aar` from your `ReactAndroid/ReactProjet/node_modules/react-native/android/com/facebook/react/react-native/0.56.0/` project.
+NOTE: `node_modules` folder was generated after you create `React-Native` project via `react-native` command, run `npm install`, or run `react-native run-android`.
 
-### 9.3) Copy `index.android.bundle` to `src/main/assets/` folder.
+### 9.3) Copy `index.android.bundle` to `ReactAndroid/ReactProject/android/UnityReactTest/src/main/assets/` folder.
 
 ### 9.3) Build `Make Project` in Android Studio.
 
-### 9.4) Deploy to Android Device. 
+### 9.4) Deploy to Android Device either from Android studio or `adb install` command.
+
+If you've set things up correctly, you'd be able to trigger `React` project from within `Unity`.
 
 
 
-# Caveat
-- No support for 64 bit. Must exclude 64 bit by adding the following to `Build.gradle`.
-
+# Caveat/Troubleshooting
+- No support for 64 bit. Must exclude 64 bit by modify `build.gradle`.
 - Dex counts will blow up if your Unity project contains a lot of 3rd party library. React-Native library will add at least 5000+ more to dex count.
 - Don't use default Gradle version when import Unity Android project to Android Studio. Otherwise, you may get into dependencies hell.
-- If react-native library is missing dependencies, make sure to add `jcenter()` to `Build.gradle`.
+- If react-native library is missing dependencies, make sure to add `jcenter()` to `build.gradle`.
 
-
+# Author
+Nate Kemavaha
 
