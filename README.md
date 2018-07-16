@@ -2,6 +2,16 @@
 
 This project is basically an exploratory investigation to see if it is possible to integrate `React` to Unity Android App.
 
+`Last Update: 07/15/2018`
+
+# What you need
+- Unity 5.6.5p1
+- Node installed via Homebrew
+- React-Native version 0.56.0
+- Android Studio
+- Android SDK from version 16 to the latest one
+- Android Build Tools at least version 25 (Recommended 27)
+
 
 # How-to-Guide (High-level)
 
