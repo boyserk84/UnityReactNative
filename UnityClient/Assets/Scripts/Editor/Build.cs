@@ -47,7 +47,6 @@ public class Build : MonoBehaviour
         //Copy(Path.Combine(buildPath, "src"), Path.Combine(exportPath, "src"));
         //Copy(Path.Combine(buildPath, "libs"), Path.Combine(exportPath, "libs"));
 
-        //BuildGradle();
         UnityEngine.Debug.Log(string.Format("Done export Unity Project to Android project path={0}", exportAndroidProjectPath));
     }
 
@@ -131,27 +130,5 @@ public class Build : MonoBehaviour
         foreach (string newPath in Directory.GetFiles(source, "*.*",
             SearchOption.AllDirectories))
             File.Copy(newPath, newPath.Replace(source, destinationPath), true);
-    }
-
-    static void BuildGradle()
-    {
-        ProcessStartInfo startInfo = new ProcessStartInfo
-            {
-                FileName = "sh",
-                Arguments = "build.sh",
-                UseShellExecute = false,
-                WorkingDirectory = projectPath,
-                RedirectStandardError = true,
-            };
-
-        var process = new Process { StartInfo = startInfo};
-        process.Start();
-        process.WaitForExit(300000);
-        AssetDatabase.Refresh();
-
-        UnityEngine.Debug.LogFormat("Built dependencies (exit code: {0})", process.ExitCode);
-        var errorOutput = process.StandardError.ReadToEnd().Trim();
-        if(!string.IsNullOrEmpty(errorOutput))
-            UnityEngine.Debug.LogWarningFormat("Warnings and potential errors:\n" + errorOutput);
     }
 }
