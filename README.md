@@ -5,7 +5,7 @@ This project is basically an exploratory investigation to see if it is possible 
 `Last Update: 07/15/2018`
 
 # High-Level Summary of what it does
-The idea is to build `React` project and integrate into `Android` module (i.e. `AAR` or `JAR`).
+The idea is to build `React` project and integrate into `Android` module (i.e. `aar` or `jar`).
 Then Unity will invoke `React` component via the `Android` module we just created.
 
 To invoke `React` component from within `Unity` app, `Unity` project will need to be exported as a `Gradle` project due to the issue of `React` does not support  64-bit and if your existing Unity project is large and has integrated a bunch of 3rd party library, you may have exceeded `DEX` counts limit by just adding `React-Native` library. These can only be resolved via a custom `build.gradle`.
@@ -108,7 +108,7 @@ Once step#3 works and there is no issue,
 - Add this module as a dependency for your Android Project in step#3.
 - Test your Android Project from step#3 to see if it still works.
 
-## 5.) Export your Android Module as `AAR`.
+## 5.) Export your Android Module as `aar`.
 
 Once you reach this, Congratulations!
 
@@ -126,7 +126,7 @@ reactNativeActivity.CallStatic("YOUR_STATIC_METHOD", currentActivity);
 
 ```
 
-## 7.) Copy your Android Module `AAR` file to `Assets/Plugins/Android` folder.
+## 7.) Copy your Android Module `aar` file to `Assets/Plugins/Android` folder.
 This will get copied over to `Gradle` project once exported.
 
 ## 8.) Export Unity project to Android Gradle project. 
@@ -301,3 +301,4 @@ Nate Kemavaha
 - `React-Native` Android app as a Module: http://www.ard.ninja/blog/react-native-android-app-as-a-module/
 - Yes it is possible to Show `Unity3D` in React (different approach): https://medium.com/@beaulieufrancois/show-unity3d-view-in-react-native-application-yes-its-possible-852923389f2d
 - Crash after requesting `React-Native` Bundle :https://github.com/facebook/react-native/issues/10925
+- `aar` file doesn't include transitive dependencies: http://www.riptutorial.com/android-gradle/example/10329/the-aar-file-doesn-t-include-the-transitive-dependencies
