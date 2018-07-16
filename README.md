@@ -22,6 +22,15 @@ UnityClient								// Unity Project
 .../Assets/Plugins/Android/				// Android Plugins and Unity's custom gradle template
 ```
 
+
+# High-Level Summary of what it does
+The idea is to build `React` project and integrate into `Android` module (i.e. `AAR` or `JAR`).
+Then Unity will invoke `React` component via the `Android` module we just created.
+
+To invoke `React` component from within `Unity` app, `Unity` project will need to be exported as a `Gradle` project due to the issue of `React` does not support  64-bit and if your existing Unity project is large and has integrated a bunch of 3rd party library, you may have exceeded `DEX` counts limit by just adding `React-Native` library. These can only be done via a custom `build.gradle`.
+
+
+
 # How-to-Guide (High-level)
 
 Follow https://facebook.github.io/react-native/docs/integration-with-existing-apps for step 1 to step 3.
