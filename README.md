@@ -302,3 +302,5 @@ Nate Kemavaha
 - Yes it is possible to Show `Unity3D` in React (different approach): https://medium.com/@beaulieufrancois/show-unity3d-view-in-react-native-application-yes-its-possible-852923389f2d
 - Crash after requesting `React-Native` Bundle :https://github.com/facebook/react-native/issues/10925
 - `aar` file doesn't include transitive dependencies: http://www.riptutorial.com/android-gradle/example/10329/the-aar-file-doesn-t-include-the-transitive-dependencies
+- `android:keyboardNavigationCluster` not found: https://stackoverflow.com/questions/45301203/no-resource-found-that-matches-the-given-name-attr-androidkeyboardnavigationc
+- `React-Native` deployment at `WalmartLabs`: https://medium.com/walmartlabs/react-native-at-walmartlabs-cdd140589560
