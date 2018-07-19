@@ -304,3 +304,4 @@ Nate Kemavaha
 - `aar` file doesn't include transitive dependencies: http://www.riptutorial.com/android-gradle/example/10329/the-aar-file-doesn-t-include-the-transitive-dependencies
 - `android:keyboardNavigationCluster` not found: https://stackoverflow.com/questions/45301203/no-resource-found-that-matches-the-given-name-attr-androidkeyboardnavigationc
 - `React-Native` deployment at `WalmartLabs`: https://medium.com/walmartlabs/react-native-at-walmartlabs-cdd140589560
+- `gradle` duplicate entry/collide dependencies when enable `multidex`: https://stackoverflow.com/questions/28168063/gradle-duplicate-entry-java-util-zip-zipexception
