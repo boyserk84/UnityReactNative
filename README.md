@@ -36,6 +36,10 @@ Follow https://facebook.github.io/react-native/docs/integration-with-existing-ap
 
 ## 1.) Create React-Native Project.
 
+If using this `React-Native` from this repo (`ReactAndroid/ReactProject`), run the following command to reconstruct `android` folder:
+```
+react-native upgrade
+```
 
 ## 2.) Build `index.android.bundle` from your `React-Native` Project. 
 This is basically what Android Application/module will use for rendering your React-Native project.
@@ -305,3 +309,4 @@ Nate Kemavaha
 - `android:keyboardNavigationCluster` not found: https://stackoverflow.com/questions/45301203/no-resource-found-that-matches-the-given-name-attr-androidkeyboardnavigationc
 - `React-Native` deployment at `WalmartLabs`: https://medium.com/walmartlabs/react-native-at-walmartlabs-cdd140589560
 - `gradle` duplicate entry/collide dependencies when enable `multidex`: https://stackoverflow.com/questions/28168063/gradle-duplicate-entry-java-util-zip-zipexception
+- `zipException` duplicate entry: http://gurusurend.com/zipexception-duplicate-entry-android-studio/

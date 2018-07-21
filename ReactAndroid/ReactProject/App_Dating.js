@@ -1,5 +1,5 @@
 /**
- * Sample React Native App
+ * Sample Dating React Native App
  * https://github.com/facebook/react-native
  *
  * @format
